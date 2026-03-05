@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install system deps for OpenCV
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1-mesa-glx libglib2.0-0 && \
+    libgl1 libglib2.0-0 && \
     rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
@@ -16,7 +16,7 @@ COPY . .
 # Or weights can be baked in by placing .pth files in checkpoints/ before building
 ARG HF_REPO_ID=""
 RUN if [ -n "$HF_REPO_ID" ]; then \
-        HF_REPO_ID=$HF_REPO_ID python download_weights.py; \
+    HF_REPO_ID=$HF_REPO_ID python download_weights.py; \
     fi
 
 EXPOSE 8000
