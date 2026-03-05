@@ -52,8 +52,13 @@ NUM_WORKERS = 0 if platform.system() == "Windows" else 2
 
 base_dir = os.path.join(os.path.dirname(__file__), '..', 'data')
 classes = ['normal', 'osteopenia', 'osteoporosis']
-train_files = set(os.listdir(os.path.join(base_dir, "train", "osteoporosis")))
-test_files  = set(os.listdir(os.path.join(base_dir, "test", "osteoporosis")))
+try:
+    train_files = set(os.listdir(os.path.join(base_dir, "train", "osteoporosis")))
+    test_files  = set(os.listdir(os.path.join(base_dir, "test",  "osteoporosis")))
+except FileNotFoundError:
+    # Data directory not present (inference-only environment, e.g. Render)
+    train_files = set()
+    test_files  = set()
 class KneeDataset(Dataset):
     def __init__(self, paths, labels, transform=None,return_paths=False):
         self.paths = paths
