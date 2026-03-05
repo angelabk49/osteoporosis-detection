@@ -22,4 +22,4 @@ RUN if [ -n "$HF_REPO_ID" ]; then \
 EXPOSE 8000
 
 # Run weight download at startup (in case they weren't baked in), then start server
-CMD python download_weights.py && uvicorn app:app --host 0.0.0.0 --port 8000
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

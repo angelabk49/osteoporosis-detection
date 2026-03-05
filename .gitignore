@@ -5,8 +5,8 @@ __pycache__/
 venv/
 .venv/
 
-# Large model files (use Git LFS or download at startup)
-backend/checkpoints/*.pth
+# Only exclude alexnet (old/unused). Keep trained checkpoints for deployment.
+backend/checkpoints/alexnet_best.pth
 backend/efficientnet_b0_local.pth
 backend_original/
 
