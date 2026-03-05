@@ -4,11 +4,17 @@
  */
 
 // ── API URL ───────────────────────────────────────────────────────────────
-// In production (HF Spaces / Render): frontend and API are on the same server,
-// so we use a relative URL. In local dev, point to localhost:8000.
+// In production (Render): frontend and API are on the same server → relative URL.
+// In local dev: point to localhost:8000.
 const API_URL = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
   ? 'http://127.0.0.1:8000'
   : '';   // empty = same origin (relative URLs)
+
+// ── API Key ───────────────────────────────────────────────────────────────
+// Set window.API_KEY in index.html (injected server-side or via env).
+// If not set, requests are sent without an API key (local dev).
+const API_KEY = window.API_KEY || '';
+
 
 // ===== DOM References =====
 const navbar = document.getElementById('navbar');
@@ -116,6 +122,12 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
+  // Client-side file size check (10 MB)
+  if (selectedFile.size > 10 * 1024 * 1024) {
+    showToast(`File too large (${(selectedFile.size / 1e6).toFixed(1)} MB). Maximum allowed size is 10 MB.`);
+    return;
+  }
+
   // Build FormData
   const formData = new FormData();
   formData.append('age', parseInt(age));
@@ -128,8 +140,12 @@ form.addEventListener('submit', async (e) => {
   btnAnalyze.disabled = true;
 
   try {
+    const headers = {};
+    if (API_KEY) headers['X-API-Key'] = API_KEY;
+
     const response = await fetch(`${API_URL}/predict`, {
       method: 'POST',
+      headers,
       body: formData,
     });
 
