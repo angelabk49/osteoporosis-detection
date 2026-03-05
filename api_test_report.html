@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff; color: #222;
+            padding: 1.5rem;
+        }
+        table {
+            width: 100%; border-collapse: collapse;
+            border: 1px solid #d0d0d0;
+        }
+        th {
+            background: #f5f5f5; color: #333;
+            padding: .6rem .8rem; text-align: left;
+            font-size: .8rem; text-transform: uppercase;
+            letter-spacing: .03em; border-bottom: 2px solid #ccc;
+        }
+        td {
+            padding: .6rem .8rem;
+            border-bottom: 1px solid #e5e5e5;
+            vertical-align: top; font-size: .85rem;
+        }
+        tr:hover { background: #fafafa; }
+        .test-id { font-weight: 700; text-align: center; }
+        .test-name { font-weight: 600; margin-bottom: .15rem; }
+        .test-meta { font-size: .8rem; color: #666; }
+        .method {
+            display: inline-block; padding: 1px 6px;
+            border-radius: 3px; font-size: .7rem;
+            font-weight: 700; color: #fff;
+        }
+        .method.get { background: #2e7d32; }
+        .method.post { background: #1565c0; }
+        .status-code { font-weight: 700; text-align: center; }
+        .response-body {
+            font-size: .72rem; max-height: 120px;
+            overflow-y: auto; white-space: pre-wrap;
+            background: #f8f8f8; padding: .4rem;
+            border-radius: 4px; color: #333;
+            border: 1px solid #e0e0e0;
+            font-family: Consolas, monospace;
+        }
+        .status { font-weight: 700; text-align: center; }
+        .status.pass { color: #2e7d32; }
+        .status.fail { color: #c62828; }
+        tr.fail { background: #fff5f5; }
+        code {
+            background: #f0f0f0; padding: 1px 4px;
+            border-radius: 3px; font-size: .78rem;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Test Case</th>
+                <th>Parameters</th>
+                <th>HTTP Code</th>
+                <th>Response Body</th>
+                <th>Expected</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="pass">
+            <td class="test-id">1</td>
+            <td>
+                <div class="test-name">GET / - Health Check</div>
+                <div class="test-meta"><span class="method get">GET</span> <code>/</code></div>
+            </td>
+            <td><code>None</code></td>
+            <td class="status-code">200</td>
+            <td><pre class="response-body">{
+  "status": "ok",
+  "model": "ensemble (ResNet50 + DenseNet121 + EfficientNet-B0)"
+}</pre></td>
+            <td><code>Status 200, status='ok'</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">2</td>
+            <td>
+                <div class="test-name">POST /predict - Valid Normal X-ray (Male, 45, no vitamin def)</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=45, sex=Male, vitamin_deficiency=false, xray=N1.JPEG</code></td>
+            <td class="status-code">200</td>
+            <td><pre class="response-body">{
+  "prediction": "osteopenia",
+  "confidence": 0.7731,
+  "class_probabilities": {
+    "normal": 0.1914,
+    "osteopenia": 0.7731,
+    "osteoporosis": 0.0355
+  },
+  "urgency": "Low",
+  "message": "No immediate concern.",
+  "patient": {
+    "age": 45,
+    "sex": "Male",
+    "vitamin_deficiency": false
+  }
+}</pre></td>
+            <td><code>Status 200, full prediction response</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">3</td>
+            <td>
+                <div class="test-name">POST /predict - Valid Osteopenia X-ray (Female, 62, vitamin def)</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=62, sex=Female, vitamin_deficiency=true, xray=OP1.JPEG</code></td>
+            <td class="status-code">200</td>
+            <td><pre class="response-body">{
+  "prediction": "osteopenia",
+  "confidence": 0.8851,
+  "class_probabilities": {
+    "normal": 0.0301,
+    "osteopenia": 0.8851,
+    "osteoporosis": 0.0848
+  },
+  "urgency": "High",
+  "message": "High risk: age and vitamin deficiency.",
+  "patient": {
+    "age": 62,
+    "sex": "Female",
+    "vitamin_deficiency": true
+  }
+}</pre></td>
+            <td><code>Status 200, full prediction response</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">4</td>
+            <td>
+                <div class="test-name">POST /predict - Valid Osteoporosis X-ray (Female, 72, vitamin def)</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=72, sex=Female, vitamin_deficiency=true, xray=OS1.JPEG</code></td>
+            <td class="status-code">200</td>
+            <td><pre class="response-body">{
+  "prediction": "osteopenia",
+  "confidence": 0.4927,
+  "class_probabilities": {
+    "normal": 0.0225,
+    "osteopenia": 0.4927,
+    "osteoporosis": 0.4848
+  },
+  "urgency": "High",
+  "message": "High risk: post-menopausal age group.",
+  "patient": {
+    "age": 72,
+    "sex": "Female",
+    "vitamin_deficiency": true
+  }
+}</pre></td>
+            <td><code>Status 200, full prediction response</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">5</td>
+            <td>
+                <div class="test-name">POST /predict - Missing xray file (validation error)</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=45, sex=Male, vitamin_deficiency=false, xray=MISSING</code></td>
+            <td class="status-code">422</td>
+            <td><pre class="response-body">{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "xray"
+      ],
+      "msg": "Field required",
+      "input": null
+    }
+  ]
+}</pre></td>
+            <td><code>Status 422 (Validation Error)</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">6</td>
+            <td>
+                <div class="test-name">POST /predict - Missing age field</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=MISSING, sex=Male, vitamin_deficiency=false, xray=N1.JPEG</code></td>
+            <td class="status-code">422</td>
+            <td><pre class="response-body">{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "age"
+      ],
+      "msg": "Field required",
+      "input": null
+    }
+  ]
+}</pre></td>
+            <td><code>Status 422 (Validation Error)</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">7</td>
+            <td>
+                <div class="test-name">POST /predict - Missing sex field</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=45, sex=MISSING, vitamin_deficiency=false, xray=N1.JPEG</code></td>
+            <td class="status-code">422</td>
+            <td><pre class="response-body">{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "sex"
+      ],
+      "msg": "Field required",
+      "input": null
+    }
+  ]
+}</pre></td>
+            <td><code>Status 422 (Validation Error)</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">8</td>
+            <td>
+                <div class="test-name">POST /predict - Invalid file type (text/plain)</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=45, sex=Male, vitamin_deficiency=false, xray=test.txt (text/plain)</code></td>
+            <td class="status-code">400</td>
+            <td><pre class="response-body">{
+  "detail": "Invalid file type 'text/plain'. Upload a JPG or PNG image."
+}</pre></td>
+            <td><code>Status 400 (Invalid file type)</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">9</td>
+            <td>
+                <div class="test-name">POST /predict - Elderly female (80) with vitamin deficiency</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=80, sex=Female, vitamin_deficiency=true, xray=N1.JPEG</code></td>
+            <td class="status-code">200</td>
+            <td><pre class="response-body">{
+  "prediction": "osteopenia",
+  "confidence": 0.8805,
+  "class_probabilities": {
+    "normal": 0.0531,
+    "osteopenia": 0.8805,
+    "osteoporosis": 0.0664
+  },
+  "urgency": "High",
+  "message": "High risk: post-menopausal age group.",
+  "patient": {
+    "age": 80,
+    "sex": "Female",
+    "vitamin_deficiency": true
+  }
+}</pre></td>
+            <td><code>Status 200, urgency=High or Critical</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">10</td>
+            <td>
+                <div class="test-name">POST /predict - Young male (25), no risk factors</div>
+                <div class="test-meta"><span class="method post">POST</span> <code>/predict</code></div>
+            </td>
+            <td><code>age=25, sex=Male, vitamin_deficiency=false, xray=N1.JPEG</code></td>
+            <td class="status-code">200</td>
+            <td><pre class="response-body">{
+  "prediction": "osteopenia",
+  "confidence": 0.7731,
+  "class_probabilities": {
+    "normal": 0.1914,
+    "osteopenia": 0.7731,
+    "osteoporosis": 0.0355
+  },
+  "urgency": "Low",
+  "message": "No immediate concern.",
+  "patient": {
+    "age": 25,
+    "sex": "Male",
+    "vitamin_deficiency": false
+  }
+}</pre></td>
+            <td><code>Status 200, risk assessment returned</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">11</td>
+            <td>
+                <div class="test-name">GET /predict - Wrong HTTP method (should be POST)</div>
+                <div class="test-meta"><span class="method get">GET</span> <code>/predict</code></div>
+            </td>
+            <td><code>None</code></td>
+            <td class="status-code">405</td>
+            <td><pre class="response-body">{
+  "detail": "Method Not Allowed"
+}</pre></td>
+            <td><code>Status 405 (Method Not Allowed)</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        <tr class="pass">
+            <td class="test-id">12</td>
+            <td>
+                <div class="test-name">GET /nonexistent - 404 Not Found</div>
+                <div class="test-meta"><span class="method get">GET</span> <code>/nonexistent</code></div>
+            </td>
+            <td><code>None</code></td>
+            <td class="status-code">404</td>
+            <td><pre class="response-body">{
+  "detail": "Not Found"
+}</pre></td>
+            <td><code>Status 404 (Not Found)</code></td>
+            <td class="status pass">PASS</td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

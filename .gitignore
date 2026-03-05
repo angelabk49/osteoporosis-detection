@@ -1,0 +1,24 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# Large model files (use Git LFS or download at startup)
+backend/checkpoints/*.pth
+backend/efficientnet_b0_local.pth
+backend_original/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.gemini/
+
+# Recordings / presentations (already deleted)
+*.mp4
+*.pptx

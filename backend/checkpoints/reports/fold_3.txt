@@ -1,0 +1,9 @@
+              precision    recall  f1-score   support
+
+      normal       1.00      0.97      0.98        61
+  osteopenia       0.98      0.98      0.98        44
+osteoporosis       0.93      0.98      0.96        44
+
+    accuracy                           0.97       149
+   macro avg       0.97      0.97      0.97       149
+weighted avg       0.97      0.97      0.97       149

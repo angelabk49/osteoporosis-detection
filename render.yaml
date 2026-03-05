@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: osteoporosis-detection-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: HF_REPO_ID
+        value: your-hf-username/osteoporosis-knee-xray   # ← change this
+    healthCheckPath: /health
+    autoDeploy: true

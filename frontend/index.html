@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ODS — Osteoporosis Detection System</title>
+  <meta name="description"
+    content="Knee X-ray analysis for early osteoporosis detection using an ensemble of deep learning models." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦴</text></svg>" />
+</head>
+
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-mesh"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-brand">
+      <span class="logo-icon">⬡</span>
+      <span class="brand-text">ODS</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#prevalence">The Problem</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#analysis">Analysis</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#analysis" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        Detection Made Simpler
+      </div>
+
+      <h1>
+        Early Osteoporosis<br />
+        <span class="gradient-text">Detection System</span>
+      </h1>
+
+      <p class="hero-description">
+        Upload a knee X-ray and receive an instant risk assessment.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#analysis" class="btn btn-primary" id="btn-start-analysis">
+          Start Analysis
+        </a>
+        <a href="#how-it-works" class="btn btn-secondary">
+          Learn More →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prevalence Section -->
+  <section class="prevalence" id="prevalence">
+    <div class="section-label fade-in">The Problem</div>
+    <h2 class="section-title fade-in" style="text-align:center;">Osteoporosis — The Silent Killer</h2>
+    <p class="section-subtitle fade-in" style="margin: 0 auto; text-align:center;">
+      Osteoporosis is a systemic skeletal disease caused due to the deterioration of the bone microarchitecture.
+    </p>
+
+    <div class="prevalence-grid">
+      <div class="prevalence-card fade-in">
+        <div class="prevalence-value">61M+</div>
+        <div class="prevalence-title">Indians Affected</div>
+        <p>Over 61 million people in India are estimated to have osteoporosis, with women constituting 80% of cases.</p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="prevalence-source">Source: NIH / PubMed</a>
+      </div>
+      <div class="prevalence-card fade-in">
+        <div class="prevalence-value">1 in 5</div>
+        <div class="prevalence-title">Adults at Risk</div>
+        <p>Approximately 18–23% of Indian adults are affected by osteoporosis, with osteopenia prevalence as high as
+          50%.</p>
+        <a href="https://ijoro.org/" target="_blank" class="prevalence-source">Source: IJORO</a>
+      </div>
+      <div class="prevalence-card fade-in">
+        <div class="prevalence-value">33%</div>
+        <div class="prevalence-title">Postmenopausal Women</div>
+        <p>One in three postmenopausal women in India suffers from osteoporosis, making them the most vulnerable group.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/" target="_blank" class="prevalence-source">Source: NCBI /
+          PMC</a>
+      </div>
+      <div class="prevalence-card fade-in">
+        <div class="prevalence-value">10–20 yrs</div>
+        <div class="prevalence-title">Earlier Onset</div>
+        <p>Osteoporosis manifests 10 to 20 years earlier in the Indian population compared to Western countries.</p>
+        <a href="https://www.medindia.net/" target="_blank" class="prevalence-source">Source: Medindia</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-label fade-in">Process</div>
+    <h2 class="section-title fade-in">How It Works</h2>
+    <p class="section-subtitle fade-in" style="margin: 0 auto;">
+      Three simple steps to get an AI-powered bone density assessment from your knee X-ray.
+    </p>
+
+    <div class="steps-grid">
+      <div class="step-card fade-in">
+        <div class="step-number">1</div>
+        <h3>Upload Knee X-ray Image</h3>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-number">2</div>
+        <h3>Robust CNN Models Conducts Analysis</h3>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-number">3</div>
+        <h3>Get a Likelihood Assessment for Clinical Verification</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analysis Section -->
+  <section class="analysis" id="analysis">
+    <div class="section-label fade-in">Analyze</div>
+    <h2 class="section-title fade-in">Knee X-ray Analysis</h2>
+    <p class="section-subtitle fade-in">
+      Fill in the patient details and upload a knee X-ray to receive an AI-powered osteoporosis risk assessment.
+    </p>
+
+    <div class="analysis-container">
+      <!-- Form -->
+      <div class="form-card fade-in">
+        <h3>Patient Details</h3>
+
+        <form id="analysis-form" novalidate>
+          <div class="form-group">
+            <label for="input-age">Age</label>
+            <input type="number" id="input-age" class="form-input" placeholder="Enter patient age" min="1" max="120"
+              required />
+          </div>
+
+          <div class="form-group">
+            <label for="input-sex">Sex</label>
+            <select id="input-sex" class="form-select" required>
+              <option value="" disabled selected>Select sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Vitamin Deficiency History</label>
+            <div class="toggle-wrapper">
+              <span class="toggle-label-text">History of vitamin deficiency</span>
+              <label class="toggle">
+                <input type="checkbox" id="input-vitamin" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Knee X-ray Image</label>
+            <div class="upload-zone" id="upload-zone">
+              <div class="upload-placeholder">
+                <div class="upload-text">Click to upload a knee X-ray image</div>
+                <div class="upload-hint">JPG, PNG</div>
+              </div>
+              <img class="upload-preview" id="upload-preview" alt="X-ray preview" />
+              <div class="file-info" id="file-info"></div>
+              <input type="file" class="upload-input" id="upload-input" accept=".jpg,.jpeg,.png" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-analyze" id="btn-analyze">
+            <span class="btn-text">Analyze X-ray</span>
+            <span class="btn-spinner"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Results -->
+      <div class="results-card fade-in">
+        <h3>Analysis Results</h3>
+
+        <div class="results-placeholder" id="results-placeholder">
+          <div class="placeholder-icon"></div>
+          <p>Upload a knee X-ray and fill in the patient details to see the AI analysis results here.</p>
+        </div>
+
+        <div class="results-content" id="results-content">
+          <!-- Prediction -->
+          <div class="prediction-block">
+            <div class="prediction-label">AI Prediction</div>
+            <div class="prediction-value" id="result-prediction">—</div>
+          </div>
+
+          <!-- Confidence -->
+          <div class="confidence-section">
+            <div class="confidence-header">
+              <span class="confidence-label">Confidence</span>
+              <span class="confidence-value" id="result-confidence">—</span>
+            </div>
+            <div class="confidence-bar-track">
+              <div class="confidence-bar-fill" id="confidence-bar"></div>
+            </div>
+            <p class="confidence-description">The maximum softmax probability from the ensemble's averaged output
+              distribution for the predicted class.</p>
+          </div>
+
+          <!-- Class Probabilities -->
+          <div class="class-probs">
+            <h4>Class Probabilities</h4>
+            <div class="prob-row">
+              <span class="prob-name">Normal</span>
+              <div class="prob-bar-track">
+                <div class="prob-bar-fill normal" id="prob-normal"></div>
+              </div>
+              <span class="prob-value" id="prob-normal-val">—</span>
+            </div>
+            <div class="prob-row">
+              <span class="prob-name">Osteopenia</span>
+              <div class="prob-bar-track">
+                <div class="prob-bar-fill osteopenia" id="prob-osteopenia"></div>
+              </div>
+              <span class="prob-value" id="prob-osteopenia-val">—</span>
+            </div>
+            <div class="prob-row">
+              <span class="prob-name">Osteoporosis</span>
+              <div class="prob-bar-track">
+                <div class="prob-bar-fill osteoporosis" id="prob-osteoporosis"></div>
+              </div>
+              <span class="prob-value" id="prob-osteoporosis-val">—</span>
+            </div>
+          </div>
+
+          <!-- Urgency -->
+          <div class="urgency-block" id="urgency-block">
+            <div class="urgency-icon" id="urgency-icon">—</div>
+            <div class="urgency-info">
+              <div class="urgency-level" id="urgency-level">—</div>
+              <div class="urgency-message" id="urgency-message">—</div>
+            </div>
+          </div>
+
+          <!-- Recommendation -->
+          <div class="recommendation" id="recommendation">
+            <strong>Note:</strong> This tool is an AI-assisted screening aid. Always consult a qualified medical
+            professional for diagnosis and treatment decisions.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="section-label fade-in">Technology</div>
+    <h2 class="section-title fade-in">About the System</h2>
+    <p class="section-subtitle fade-in" style="margin: 0 auto;">
+      A state-of-the-art AI pipeline combining multiple deep learning architectures for reliable bone density
+      classification.
+    </p>
+
+    <div class="about-grid">
+      <div class="about-card fade-in">
+        <div class="card-icon"></div>
+        <h3>ResNet-50</h3>
+        <p>A proven image recognition model that has been trained on millions of images, then specially adapted to
+          recognize bone density patterns in knee X-rays.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="card-icon"></div>
+        <h3>EfficientNet-B0</h3>
+        <p>A lightweight yet powerful model designed to be highly accurate while using fewer resources, making it ideal
+          for fast and reliable medical image analysis.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="card-icon"></div>
+        <h3>DenseNet-121</h3>
+        <p>A powerful model where every layer connects to every other layer, enabling superior feature reuse and making
+          it
+          especially effective at detecting subtle bone density changes in medical images.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="card-icon"></div>
+        <h3>Test-Time Augmentation</h3>
+        <p>The system examines your X-ray from multiple angles and orientations, similar to how a doctor would rotate an
+          image, to ensure a more reliable result.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="card-icon"></div>
+        <h3>Ensemble Decision</h3>
+        <p>Rather than relying on a single model, all three models vote together on the final result — like getting a
+          second and third opinion for greater confidence.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="card-icon"></div>
+        <h3>Risk Assessment</h3>
+        <p>The AI result is combined with patient details like age, sex, and vitamin history to provide a complete risk
+          picture for your clinician to review.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      <span class="footer-accent">ODS</span> — Osteoporosis Detection System
+    </p>
+    <p class="footer-warning">
+      Warning: AI can make mistakes. It is important to verify your assessment with a clinician.
+    </p>
+  </footer>
+
+  <!-- Error Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
